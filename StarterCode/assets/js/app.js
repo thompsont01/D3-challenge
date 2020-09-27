@@ -4,15 +4,16 @@ function makeChart() {
     let svgWidth = 1000;
     let svgHeight = 500;
     let margin = {
-        
+
     top: 30,
     right: 50,
     bottom: 90,
     left:120
     };
     
-    let width = svgWidth - margin.left - margin.right;
-    let height = svgHeight - margin.top - margin.bottom;
+    //set height and width
+    let w = svgWidth - margin.left - margin.right;
+    let h = svgHeight - margin.top - margin.bottom;
     
     //create wrapper
     let svg = d3.select("#scatter")
@@ -38,18 +39,18 @@ function makeChart() {
 
         let xLinearScale = d3.scaleLinear()
             .domain([8.5, d3.max(riskData, d => d.poverty)])
-            .range([0, width]);
+            .range([0, w]);
     
         let yLinearScale = d3.scaleLinear()
             .domain([3.5, d3.max(riskData, d => d.healthcare)])
-            .range([height, 0]);
+            .range([h, 0]);
     
     //generate y axis and x axis
         let xAxis = d3.axisBottom(xLinearScale);
         let yAxis = d3.axisLeft(yLinearScale);
     
         chartGroup.append("g")
-        .attr("transform", `translate(0, ${height})`)
+        .attr("transform", `translate(0, ${h})`)
         .call(xAxis);
     
         chartGroup.append("g")
@@ -94,7 +95,7 @@ function makeChart() {
     
     //x axis label
         chartGroup.append("text")
-          .attr("transform", `translate(${width / 2.5}, ${height + margin.top + 25})`)
+          .attr("transform", `translate(${w / 2.5}, ${h + margin.top + 25})`)
           .attr("class", "axisText")
           .text("In Poverty (%)");
     
